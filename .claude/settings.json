@@ -1,0 +1,46 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "teammateMode": "tmux",
+  "permissions": {
+    "allow": [
+      "Read", "Edit", "Write", "Grep", "Glob", "WebSearch",
+      "WebFetch(domain:massive.com)", "WebFetch(domain:api.massive.com)",
+      "WebFetch(domain:docs.alpaca.markets)", "WebFetch(domain:www.sec.gov)",
+      "WebFetch(domain:code.claude.com)", "WebFetch(domain:docs.claude.com)",
+      "WebFetch(domain:pypi.org)",
+      "Bash(make *)", "Bash(python *)", "Bash(python3 *)", "Bash(pytest *)",
+      "Bash(pip install *)", "Bash(ls *)", "Bash(mkdir *)", "Bash(cat *)",
+      "Bash(head *)", "Bash(tail *)", "Bash(wc *)", "Bash(sort *)", "Bash(du *)",
+      "Bash(git status*)", "Bash(git diff*)", "Bash(git log*)", "Bash(git show*)",
+      "Bash(git add *)", "Bash(git commit *)"
+    ],
+    "deny": [
+      "Bash(git push*)", "Bash(git reset*)", "Bash(git rebase*)", "Bash(git checkout*)",
+      "Bash(git restore*)", "Bash(git clean*)", "Bash(git tag*)", "Bash(git commit --amend*)",
+      "Bash(rm -rf *)", "Bash(sudo *)", "Bash(curl *)", "Bash(wget *)",
+      "Read(./.env)", "Read(./.env.*)",
+      "Edit(./contracts/**)", "Edit(./swing/config.py)", "Edit(./swing/env.py)",
+      "Edit(./tests/leakage/**)", "Edit(./tests/conftest.py)", "Edit(./.claude/**)",
+      "Edit(./docs/PREREGISTRATION.md)", "Edit(./Makefile)", "Edit(./ledger/trials.jsonl)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard.py\"" }
+        ]
+      }
+    ],
+    "TeammateIdle": [
+      {
+        "hooks": [
+          { "type": "command", "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/idle_check.sh\"", "timeout": 660 }
+        ]
+      }
+    ]
+  }
+}
