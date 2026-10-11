@@ -9,6 +9,6 @@ Tasks (owner, depends on):
 - T5 auditor: planted-bug audit of frozen suite -> docs/audits/frozen-suite.md — in progress
 - T6 auditor: review each of T1-T4 as it lands (PASS/BLOCK)
 Gate: make test strict passes, make audit clean, auditor PASS; then lead pushes phase-1 branch and opens PR to main (owner request).
-Blockers: make audit fails — FROZEN.sha256 missing; no baseline commit (repo mostly untracked).
+Blockers: none. Baseline 7a3ff5c, freeze 708fbc6, make audit clean.
 Open for Phase 2: confirm Massive base_url (default https://api.massive.com, unverified).
-Owner decisions pending: commit baseline + `make freeze` + tag; sign-off on contracts and pre-registration before Phase 4.
+Owner decisions pending: sign-off on contracts and pre-registration before Phase 4.
